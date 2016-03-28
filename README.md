@@ -1,2 +1,2 @@
 # vedic-py
-Python library for Vedic sutras
+Python library for Vedic Maths sutras
