@@ -112,6 +112,8 @@ class Ops(object):
 		y = Ops.leftpad_zeroes(y, max_len - len(y))
 
 		main_stack = list()
+		found_conseq_digit = False
+		inconseq_zeroes = 0
 		main_stack.append(str(int(x[0]) - int(y[0])))
 
 		for idx in range(1, max_len):
@@ -140,8 +142,15 @@ class Ops(object):
 				correction_stack = None
 				# Add 10 to num1
 				num1 += 10
+			if found_conseq_digit is not True:
+				# Check top element
+				top_most = main_stack[-1]
+				if top_most == '0':
+					inconseq_zeroes += 1
+				else:
+					found_conseq_digit = True
 			main_stack.append(str(num1 - num2))
-		return VedicNumber("".join(main_stack))
+		return VedicNumber("".join(main_stack[inconseq_zeroes:]))
 
 	@staticmethod
 	def multiply(x, y):
