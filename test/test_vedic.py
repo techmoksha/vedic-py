@@ -81,9 +81,7 @@ def test_fact():
 	print(len(str(result)))
 
 if __name__ == '__main__':
-	# arr = [0,0,0,3]
-	# print(arr[3:])
-	# test_addition()
+	test_addition()
 	test_subtract()
-	# test_multiply()
-	# test_fact()
+	test_multiply()
+	test_fact()
