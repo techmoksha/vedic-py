@@ -1,4 +1,5 @@
 from itertools import chain
+from math import pow
 
 
 class VedicNumber:
@@ -16,6 +17,9 @@ class VedicNumber:
 
 	def __sub__(self, other):
 		return Ops.subtract(self, other)
+
+	def __pow__(self, power, modulo=None):
+		return Ops.pow(self, power)
 
 	def __str__(self):
 		return self.num
@@ -232,3 +236,39 @@ class Ops(object):
 		for i in range(3, num + 1):
 			result *= VedicNumber(i)
 		return result
+
+	@staticmethod
+	def duplex(num):
+		if isinstance(num, int) or isinstance(num, VedicNumber):
+			num = str(num)
+		# Convert to constituent digits
+		num_digits = list(num)
+		num_digits = list(map(lambda digit: int(digit), num_digits))
+		length = len(num_digits)
+		duplex = 0
+		if length % 2 != 0:
+			# Duplex is calculated as m ** 2 + 2 * a * b for odd digit numbers
+			duplex = int(pow(num_digits[int(length / 2)], 2))
+		duplex += 2 * sum([num_digits[i] * num_digits[length - 1 - i] for i in range(0, int(length / 2))])
+		return duplex
+
+	@staticmethod
+	def pow(num, power):
+		if power == 2:
+			return Ops.sq(num)
+
+	@staticmethod
+	def sq(num):
+		"""
+		Performs square of this number based on vedic square sutra
+		:return: Result of square as #VedicNumber
+		"""
+		if isinstance(num, int) or isinstance(num, VedicNumber):
+			num = str(num)
+		length = len(num)
+		duplexes = dict()
+		for i in range(1, length + 1):
+			duplexes[(2 * length) - i] = Ops.duplex(num[0:i])
+			duplexes[i] = Ops.duplex(num[length - i:length])
+		# Reduce the duplex dict to single number
+		return Ops.reduce(duplexes)
