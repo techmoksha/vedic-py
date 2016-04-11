@@ -80,8 +80,33 @@ def test_fact():
 		result *= i
 	print(len(str(result)))
 
+
+def test_duplex():
+	duplex = Ops.duplex(54)
+	print(duplex)
+	duplex = Ops.duplex(5456)
+	print(duplex)
+	duplex = Ops.duplex(372)
+	print(duplex)
+	duplex = Ops.duplex(789)
+	print(duplex)
+	duplex = Ops.duplex(78913)
+	print(duplex)
+
+
+def test_sq():
+	print(VedicNumber(15) ** 2)
+	print(VedicNumber(211) ** 2)
+	print(VedicNumber(78913) ** 2)
+	print(VedicNumber(14658773710080787476049501741254440712874227) ** 2)
+	print(VedicNumber(4681792376906432202903607601716785597020499902587316420748476976419066198975454254254254278899) ** 2)
+
+
 if __name__ == '__main__':
 	test_addition()
 	test_subtract()
 	test_multiply()
 	test_fact()
+	test_duplex()
+	test_sq()
+
